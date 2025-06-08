@@ -15,6 +15,8 @@ public class Program
         var builder = WebApplication.CreateBuilder();
         
         var app = builder.Build();
+
+        CheckConfig(builder);
         
         DeepSeekClient.ApiKey = builder.Configuration["DeepSeekClient:ApiKey"];
         
@@ -76,5 +78,21 @@ public class Program
         app.MapOpenApi();
 
         app.Run();
+    }
+
+    private static void CheckConfig(WebApplicationBuilder builder)
+    {
+        var deepseekapikey = builder.Configuration["DeepSeekClient:ApiKey"];
+        
+        var apiid = builder.Configuration["TgUserClient:ApiId"];
+        var apihash = builder.Configuration["TgUserClient:ApiHash"];
+        var phone = builder.Configuration["TgUserClient:Phone"];
+
+
+        if (string.IsNullOrWhiteSpace(deepseekapikey) || string.IsNullOrWhiteSpace(apiid) ||
+            string.IsNullOrWhiteSpace(apihash) || string.IsNullOrWhiteSpace(phone))
+        {
+            Console.WriteLine($"Check config depsek {deepseekapikey} apiid {apiid} apihash {apihash} phone {phone}");
+        }
     }
 }
