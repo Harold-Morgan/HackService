@@ -86,9 +86,9 @@ public class UserInfoService : IDisposable, IAsyncDisposable
             .Select((kv, thisId) =>
             {
                 (long id, User? user) = kv;
+                
+                var thumbBytes = GetThumbBytes(user);
 
-                var thumbBytes = user.photo?.stripped_thumb;
-            
                 return new UserInfo
                 {
                     id = user.id,
@@ -124,7 +124,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
 
         return result;
     }
-    
+
     private async Task<UserInfo[]> UserInfosFromChatUsers(long? userId, Dictionary<long, User> participants)
     {
         UserInfo[] result = participants
@@ -136,7 +136,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
             {
                 (long id, User? user) = kv;
 
-                var thumbBytes = user.photo?.stripped_thumb;
+                var thumbBytes = GetThumbBytes(user);
             
                 return new UserInfo
                 {
@@ -172,6 +172,21 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         
 
         return result;
+    }
+    
+    private byte[] GetThumbBytes(User user)
+    {
+        if (false)
+        {
+            return user.photo?.stripped_thumb;
+        }
+        
+        var memoryStream = new MemoryStream();
+                
+        Client.DownloadProfilePhotoAsync(user, memoryStream, false, true).Wait();
+                
+        var thumbBytes = memoryStream.ToArray();
+        return thumbBytes;
     }
 
     public async Task<string> GetUserBio(long userId, long? chatId = null)
