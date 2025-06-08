@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackService", "HackService\HackService.csproj", "{F82B5A63-920E-41E4-A6AA-52CB99673C2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F82B5A63-920E-41E4-A6AA-52CB99673C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82B5A63-920E-41E4-A6AA-52CB99673C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82B5A63-920E-41E4-A6AA-52CB99673C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82B5A63-920E-41E4-A6AA-52CB99673C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
