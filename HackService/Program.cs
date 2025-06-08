@@ -57,7 +57,7 @@ public class Program
 
         app.MapGet("/api/v1/samvel", () =>
         {
-            return TypedResults.PhysicalFile("/Users/hmorgan/Downloads/melon.jpeg", "image/jpeg");
+            return TypedResults.File(Convert.FromBase64String(SamvelInfo.Samvel), "image/jpeg");
         });
         
         app.MapPost("/api/v1/getChatPortrait", async (ChatPortraitRequest req) =>
