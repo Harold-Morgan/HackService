@@ -1,4 +1,5 @@
 using HackService.Models;
+using ImageMagick;
 using TL;
 using WTelegram;
 
@@ -186,6 +187,17 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         Client.DownloadProfilePhotoAsync(user, memoryStream, false, false).Wait();
                 
         var thumbBytes = memoryStream.ToArray();
+        
+        /// Read from file
+        using var image = new MagickImage(thumbBytes);
+
+        var size = new MagickGeometry(28, 28);
+        size.IgnoreAspectRatio = true;
+
+        image.Resize(size);
+
+        thumbBytes = image.ToByteArray();
+        
         return thumbBytes;
     }
 
