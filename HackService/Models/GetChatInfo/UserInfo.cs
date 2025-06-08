@@ -2,7 +2,7 @@ namespace HackService.Models;
 
 public record UserInfo
 {
-    public long id { get; set; }
+    public long UserId { get; set; }
     public long AccessHash { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
