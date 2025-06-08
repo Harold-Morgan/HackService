@@ -81,7 +81,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         UserInfo[] result = participants.users
             .Where((kv, _) =>
             {
-                return !kv.Value.IsBot;
+                return !kv.Value.IsBot && kv.Value.ID != Client.UserId;;
             })
             .Select((kv, thisId) =>
             {
@@ -91,7 +91,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
 
                 return new UserInfo
                 {
-                    id = user.id,
+                    UserId = user.id,
                     AccessHash = user.access_hash,
                     FirstName = user.first_name,
                     LastName = user.last_name,
@@ -106,12 +106,12 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         
         if (userId != null)
         {
-            result = result.Where(x => x.id == userId).ToArray();
+            result = result.Where(x => x.UserId == userId).ToArray();
         }
 
         foreach (var userInfo in result)
         {
-            var user = participants.users[userInfo.id];
+            var user = participants.users[userInfo.UserId];
 
             var inputUser = user;
             // var inputUser = new InputUser(userInfo.id, userInfo.AccessHash);
@@ -130,7 +130,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         UserInfo[] result = participants
             .Where((kv, _) =>
             {
-                return !kv.Value.IsBot;
+                return !kv.Value.IsBot && kv.Value.ID != Client.UserId;
             })
             .Select((kv, thisId) =>
             {
@@ -140,7 +140,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
             
                 return new UserInfo
                 {
-                    id = user.id,
+                    UserId = user.id,
                     AccessHash = user.access_hash,
                     FirstName = user.first_name,
                     LastName = user.last_name,
@@ -155,12 +155,12 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         
         if (userId != null)
         {
-            result = result.Where(x => x.id == userId).ToArray();
+            result = result.Where(x => x.UserId == userId).ToArray();
         }
 
         foreach (var userInfo in result)
         {
-            var user = participants[userInfo.id];
+            var user = participants[userInfo.UserId];
 
             var inputUser = user;
             // var inputUser = new InputUser(userInfo.id, userInfo.AccessHash);
@@ -183,7 +183,7 @@ public class UserInfoService : IDisposable, IAsyncDisposable
         
         var memoryStream = new MemoryStream();
                 
-        Client.DownloadProfilePhotoAsync(user, memoryStream, false, true).Wait();
+        Client.DownloadProfilePhotoAsync(user, memoryStream, false, false).Wait();
                 
         var thumbBytes = memoryStream.ToArray();
         return thumbBytes;
